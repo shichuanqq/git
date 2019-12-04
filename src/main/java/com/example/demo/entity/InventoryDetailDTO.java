@@ -5,5 +5,7 @@ import lombok.Data;
 @Data
 public class InventoryDetailDTO {
 
-    private String idcType;
+    private String code;
+
+    private String name;
 }
