@@ -41,4 +41,11 @@ public class createDetailController {
         return createDetailService.queryDetail1();
     }
 
+    @GetMapping("/controller")
+    public InventoryDetailDTO getDetail(){
+        InventoryDetailDTO inventoryDetailDTO = new InventoryDetailDTO();
+        inventoryDetailDTO.setCode("code");
+        inventoryDetailDTO.setName("name");
+        return inventoryDetailDTO;
+    }
 }
