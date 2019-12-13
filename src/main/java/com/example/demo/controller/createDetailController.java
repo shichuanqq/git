@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.config.database.ReadOnlyAnnotation;
 import com.example.demo.entity.InventoryDetailDTO;
 import com.example.demo.service.CreateDetailService;
 import com.example.demo.utils.RedisUtils;
@@ -19,12 +18,19 @@ public class createDetailController {
     @Autowired
     private CreateDetailService createDetailService;
 
+    /**
+     * 测试redis
+     */
     @GetMapping("/redisTest")
     public void test(){
         redisUtils.set("a","test");
         System.out.println(redisUtils.get("a"));
     }
 
+    /**
+     * 切换数据源
+     * @return
+     */
     @GetMapping("/db1")
     public List<InventoryDetailDTO> test1(){
         return createDetailService.queryDetail();
@@ -34,4 +40,5 @@ public class createDetailController {
     public List<InventoryDetailDTO> test2(){
         return createDetailService.queryDetail1();
     }
+
 }
