@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.aop.Axin;
 import com.example.demo.entity.InventoryDetailDTO;
 import com.example.demo.service.CreateDetailService;
 import com.example.demo.utils.RedisUtils;
@@ -41,8 +42,9 @@ public class createDetailController {
         return createDetailService.queryDetail1();
     }
 
+    @Axin(module = "print",desc = "打印")
     @GetMapping("/controller")
-    public InventoryDetailDTO getDetail(){
+    public InventoryDetailDTO getDetail(String code,String name){
         InventoryDetailDTO inventoryDetailDTO = new InventoryDetailDTO();
         inventoryDetailDTO.setCode("code");
         inventoryDetailDTO.setName("name");
