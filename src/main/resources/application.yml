@@ -71,3 +71,14 @@ spring:
             content-type: text/html
         mode: HTML
         cache: false
+    mail:
+        host: smtp.163.com
+        username: shichuanqaq@163.com
+        password: qq1122
+        port: 465
+        default-encoding: UTF-8
+        properties :
+            mail:
+                smtp :
+                    ssl :
+                        enable : true
