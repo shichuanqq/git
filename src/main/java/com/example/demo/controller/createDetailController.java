@@ -3,9 +3,9 @@ package com.example.demo.controller;
 import com.example.demo.aop.Axin;
 import com.example.demo.entity.InventoryDetailDTO;
 import com.example.demo.service.CreateDetailService;
+import com.example.demo.utils.EmailUtils;
 import com.example.demo.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +21,8 @@ public class createDetailController {
     @Autowired
     private CreateDetailService createDetailService;
 
+    @Autowired
+    private EmailUtils emailUtils;
     /**
      * 测试redis
      */
@@ -58,12 +60,7 @@ public class createDetailController {
 
     @GetMapping("emil")
     public String sendEmail(){
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setFrom("shichuanqaq@163.com");
-        simpleMailMessage.setTo("75847834@qq.com");
-        simpleMailMessage.setSubject("这是一封邮件");
-        simpleMailMessage.setText("text");
-        javaMailSender.send(simpleMailMessage);
+        emailUtils.sendHtmlEmail("111","75847834@qq.com");
         return "success";
     }
 }
