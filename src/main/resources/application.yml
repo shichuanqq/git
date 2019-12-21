@@ -86,3 +86,9 @@ spring:
     port: 5672
     username: guest
     password: guest
+    listener:
+      direct:
+        retry:
+          #开启重试 次数
+          enabled: true
+          max-attempts: 5

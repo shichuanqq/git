@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.aop.Axin;
 import com.example.demo.entity.InventoryDetailDTO;
+import com.example.demo.rabbitmq.direct.DirectSender;
 import com.example.demo.service.CreateDetailService;
 import com.example.demo.utils.EmailUtils;
 import com.example.demo.utils.RedisUtils;
@@ -61,6 +62,15 @@ public class createDetailController {
     @GetMapping("emil")
     public String sendEmail(){
         emailUtils.sendHtmlEmail("111","75847834@qq.com");
+        return "success";
+    }
+
+    @Autowired
+    private DirectSender directSender;
+
+    @GetMapping("rabbitmq")
+    public String send(String msg){
+        directSender.send("test");
         return "success";
     }
 }
