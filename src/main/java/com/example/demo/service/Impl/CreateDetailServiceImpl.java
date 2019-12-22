@@ -4,6 +4,7 @@ import com.example.demo.config.database.ReadOnlyAnnotation;
 import com.example.demo.dao.CreateDetailDao;
 import com.example.demo.entity.InventoryDetailDTO;
 import com.example.demo.service.CreateDetailService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class CreateDetailServiceImpl implements CreateDetailService {
 
     @Override
     public List<InventoryDetailDTO> queryDetail() {
+        PageHelper.startPage(0,10);
         return createDetailDao.queryDetail();
     }
 
