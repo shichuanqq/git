@@ -8,4 +8,6 @@ public interface CreateDetailService {
     List<InventoryDetailDTO> queryDetail();
 
     List<InventoryDetailDTO> queryDetail1();
+
+    String logDebug();
 }

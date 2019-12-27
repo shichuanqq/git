@@ -47,6 +47,7 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+  page-size-zero: false
 
 spring:
   redis:
