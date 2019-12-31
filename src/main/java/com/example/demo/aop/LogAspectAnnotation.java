@@ -1,5 +1,6 @@
 package com.example.demo.aop;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class LogAspectAnnotation {
 
     @Before("execution(* com.example.demo.controller.*.*(..))")
-    public void bBefore() {
+    public void bBefore(JoinPoint joinPoint) {
         System.out.println("@@@前置通知");
     }
     @AfterReturning("execution(* com.example.demo.controller.*.*(..)))")
