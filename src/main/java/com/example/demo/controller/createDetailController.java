@@ -12,6 +12,7 @@ import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -55,8 +56,7 @@ public class createDetailController {
 
     @Axin(module = "print", desc = "打印")
     @GetMapping("/controller")
-    public InventoryDetailDTO getDetail(String code, String name) {
-        InventoryDetailDTO inventoryDetailDTO = new InventoryDetailDTO();
+    public InventoryDetailDTO getDetail(@RequestBody InventoryDetailDTO inventoryDetailDTO) {
         inventoryDetailDTO.setCode("code");
         inventoryDetailDTO.setName("name");
         return inventoryDetailDTO;
@@ -90,7 +90,7 @@ public class createDetailController {
     }
 
     @GetMapping("logDebug")
-    public String logDebug(){
+    public String logDebug() {
         return createDetailService.logDebug();
     }
 

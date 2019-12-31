@@ -18,7 +18,7 @@ public class ThreadQueueUtils<T, R> {
     private Function<T, R> function;
     private Callable<List<R>> callable = new Callable<List<R>>() {
         @Override
-        public List<R> call() throws Exception {
+        public List<R> call() {
             List<R> list = Lists.newArrayList();
             for (; ; ) {
                 T poll = queue.poll();
