@@ -7,10 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * 定时执行job
@@ -24,9 +21,16 @@ public class ScheduledThreadPool {
     private static ScheduledExecutorService scheduledExecutorService =
             new ScheduledThreadPoolExecutor(2, new ThreadFactoryBuilder().setNameFormat("msg-process-%d").build());
 
+    //创建一个缓冲池，缓冲池容量大小为Integer.MAX_VALUE
+    private static ExecutorService cachedThreadPool = Executors.newCachedThreadPool(new ThreadFactoryBuilder().setNameFormat("msg-process-%d").build());
+    //创建容量为1的缓冲池
+    private static ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor(new ThreadFactoryBuilder().setNameFormat("msg-process-%d").build());
+    //创建固定容量大小的缓冲池
+    private static ExecutorService fixedThreadPool = Executors.newFixedThreadPool(20, new ThreadFactoryBuilder().setNameFormat("msg-process-%d").build());
+
     private static final Integer BATH_SIZE = 1000;
 
-    public void setMessage(String msg){
+    public void setMessage(String msg) {
         message.push(msg);
     }
 
