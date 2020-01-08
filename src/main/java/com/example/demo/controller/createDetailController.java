@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.aop.Axin;
+import com.example.demo.entity.Demo;
 import com.example.demo.entity.InventoryDetailDTO;
 import com.example.demo.executors.ScheduledThreadPool;
 import com.example.demo.executors.ThreadQueueUtils;
@@ -10,6 +11,7 @@ import com.example.demo.utils.EmailUtils;
 import com.example.demo.utils.RedisUtils;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -106,5 +108,22 @@ public class createDetailController {
         List<String> list = Lists.newArrayList("6");
         ThreadQueueUtils.create(list, function).start(2);
         return "success";
+    }
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @GetMapping("/publishEvent")
+    public String publishEvent(){
+//        InventoryDetailDTO inv = new InventoryDetailDTO();
+//        inv.setName("name");
+//        inv.setCode("code");
+//        applicationContext.publishEvent(inv);
+
+        Demo demo = new Demo();
+        demo.setCode("1");
+        demo.setName("2");
+        applicationContext.publishEvent(demo);
+        return "5";
     }
 }
