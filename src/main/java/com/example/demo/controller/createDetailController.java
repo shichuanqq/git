@@ -114,7 +114,7 @@ public class createDetailController {
     private ApplicationContext applicationContext;
 
     @GetMapping("/publishEvent")
-    public String publishEvent(){
+    public String publishEvent() {
 //        InventoryDetailDTO inv = new InventoryDetailDTO();
 //        inv.setName("name");
 //        inv.setCode("code");
@@ -124,6 +124,14 @@ public class createDetailController {
         demo.setCode("1");
         demo.setName("2");
         applicationContext.publishEvent(demo);
+        return "5";
+    }
+
+    @GetMapping("/deBug")
+    public String deBug() {
+        for (int i = 0; i < 10; i++) {
+            System.out.println(i);
+        }
         return "5";
     }
 }
