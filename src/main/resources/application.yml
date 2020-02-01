@@ -51,6 +51,8 @@ pagehelper:
 
 
 spring:
+  activiti:
+    check-process-definitions: false
   redis:
     database: 0
     host: 127.0.0.1
@@ -62,7 +64,6 @@ spring:
         max-wait: -1
         max-idle: 1
         min-idle: 0
-    timeout:
   thymeleaf:
     prefix: classpath:/templates/
     check-template: true
@@ -83,16 +84,16 @@ spring:
         smtp:
           ssl:
             enable: true
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
-    listener:
-      direct:
-        retry:
-          #开启重试 次数
-          enabled: true
-          max-attempts: 5
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
+#    listener:
+#      direct:
+#        retry:
+#          #开启重试 次数
+#          enabled: true
+#          max-attempts: 5
 server:
   port: 8081

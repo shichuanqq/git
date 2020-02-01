@@ -13,6 +13,8 @@ import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -133,5 +135,16 @@ public class createDetailController {
             System.out.println(i);
         }
         return "5";
+    }
+
+    @GetMapping(value = "retry")
+    @Retryable(
+            value = {RuntimeException.class}, //根据异常重试机制
+            maxAttempts = 3,   //重试次数
+            backoff = @Backoff(delay = 5000,multiplier = 5)   // delay间隔，多少个执行者
+    )
+    public String retry(){
+        System.out.println("retry 执行了 。。。。");
+        throw new RuntimeException();
     }
 }
