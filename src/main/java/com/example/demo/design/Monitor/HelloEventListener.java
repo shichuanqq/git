@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class HelloEventListener {
+public class HelloEventListener{
 
     @EventListener(classes = InventoryDetailDTO.class)
     public void onApplicationEvent(InventoryDetailDTO inventoryDetailDTO) {
@@ -20,4 +20,5 @@ public class HelloEventListener {
     public void onApplicationEvent(Demo demo) {
         log.info("demo {} say hello!", JSONArray.toJSONString(demo));
     }
+
 }

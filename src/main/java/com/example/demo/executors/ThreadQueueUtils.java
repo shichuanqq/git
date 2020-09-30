@@ -7,6 +7,7 @@ import org.assertj.core.util.Lists;
 
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Function;
@@ -45,6 +46,14 @@ public class ThreadQueueUtils<T, R> {
         List<Future<List<R>>> result = Lists.newArrayList();
         for (int i = 0; i < threadNum; i++) {
             Future<List<R>> submit = ExecutorServiceUtil.newExecutorService().submit(callable);
+            try {
+                List<R> rs = submit.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
             result.add(submit);
         }
         return result;

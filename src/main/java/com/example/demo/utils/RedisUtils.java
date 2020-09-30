@@ -24,6 +24,7 @@ public class RedisUtils {
 
     // =============================common============================
 
+
     /**
      * 指定缓存失效时间
      *
@@ -221,6 +222,7 @@ public class RedisUtils {
             return false;
         }
     }
+
 
     /**
      * 向一张hash表中放入数据,如果不存在将创建

@@ -1,6 +1,9 @@
 package com.example.demo.executors;
 
+import com.example.demo.entity.InventoryDetailDTO;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import lombok.Setter;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Component;
@@ -26,7 +29,7 @@ public class ScheduledThreadPool {
     //创建容量为1的缓冲池
     private static ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor(new ThreadFactoryBuilder().setNameFormat("msg-process-%d").build());
     //创建固定容量大小的缓冲池
-    private static ExecutorService fixedThreadPool = Executors.newFixedThreadPool(20, new ThreadFactoryBuilder().setNameFormat("msg-process-%d").build());
+    public static ExecutorService fixedThreadPool = Executors.newFixedThreadPool(20, new ThreadFactoryBuilder().setNameFormat("msg-process-%d").build());
 
     private static final Integer BATH_SIZE = 1000;
 
@@ -64,4 +67,28 @@ public class ScheduledThreadPool {
         );
     }
 
+    public static void main(String[] args) throws ExecutionException {
+        for(int i = 0 ;i < 10 ;i ++){
+            fixedThreadPool.submit(new EmailTask(String.valueOf(i)));
+        }
+        System.out.println(11111111);
+    }
+
+}
+
+
+class EmailTask implements Runnable{
+
+    private String pageNum;
+
+    public EmailTask(String pageNum){
+        this.pageNum = pageNum;
+    }
+
+    @SneakyThrows
+    @Override
+    public void run()  {
+        Thread.sleep(10000);
+        System.out.println(pageNum);
+    }
 }

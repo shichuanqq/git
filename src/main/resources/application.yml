@@ -64,6 +64,10 @@ spring:
         max-wait: -1
         max-idle: 1
         min-idle: 0
+  data:
+    elasticsearch:
+      cluster-name: myes
+      cluster-nodes: 127.0.0.1:9300
   thymeleaf:
     prefix: classpath:/templates/
     check-template: true
@@ -84,16 +88,16 @@ spring:
         smtp:
           ssl:
             enable: true
-#  rabbitmq:
-#    host: 127.0.0.1
-#    port: 5672
-#    username: guest
-#    password: guest
-#    listener:
-#      direct:
-#        retry:
-#          #开启重试 次数
-#          enabled: true
-#          max-attempts: 5
+  rabbitmq:
+    host: 192.168.5.238
+    port: 5672
+    username: amking
+    password: 49186865
+    listener:
+      direct:
+        retry:
+          #开启重试 次数
+          enabled: true
+          max-attempts: 5
 server:
   port: 8081

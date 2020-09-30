@@ -54,7 +54,7 @@ public class CountTask extends RecursiveTask<Long> {
             Long res = result.get();
             System.out.println("sum = " + res);
         } catch (Exception e) {
-//        200010000
+
         }
     }
 }

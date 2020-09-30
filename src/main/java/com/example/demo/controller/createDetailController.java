@@ -9,8 +9,9 @@ import com.example.demo.rabbitmq.direct.DirectSender;
 import com.example.demo.service.CreateDetailService;
 import com.example.demo.utils.EmailUtils;
 import com.example.demo.utils.RedisUtils;
-import org.assertj.core.util.Lists;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.retry.annotation.Backoff;
@@ -29,10 +30,15 @@ public class createDetailController {
     RedisUtils redisUtils;
 
     @Autowired
+    @Qualifier("CreateDetailServiceImpl")
     private CreateDetailService createDetailService;
 
     @Autowired
     private EmailUtils emailUtils;
+
+    @Autowired
+    private ScheduledThreadPool scheduledThreadPool;
+
 
     /**
      * 测试redis
@@ -42,6 +48,7 @@ public class createDetailController {
         redisUtils.set("a", "test");
         System.out.println(redisUtils.get("a"));
     }
+
 
     /**
      * 切换数据源
@@ -84,9 +91,6 @@ public class createDetailController {
         return "success";
     }
 
-    @Autowired
-    private ScheduledThreadPool scheduledThreadPool;
-
     @GetMapping("scheduledThreadPool")
     public String ScheduledThreadPool(String msg) {
         scheduledThreadPool.setMessage(msg);
@@ -115,12 +119,12 @@ public class createDetailController {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @GetMapping("/publishEvent")
+    @GetMapping("publishEvent")
     public String publishEvent() {
-//        InventoryDetailDTO inv = new InventoryDetailDTO();
-//        inv.setName("name");
-//        inv.setCode("code");
-//        applicationContext.publishEvent(inv);
+        InventoryDetailDTO inv = new InventoryDetailDTO();
+        inv.setName("name");
+        inv.setCode("code");
+        applicationContext.publishEvent(inv);
 
         Demo demo = new Demo();
         demo.setCode("1");
@@ -128,6 +132,7 @@ public class createDetailController {
         applicationContext.publishEvent(demo);
         return "5";
     }
+
 
     @GetMapping("/deBug")
     public String deBug() {
@@ -141,10 +146,16 @@ public class createDetailController {
     @Retryable(
             value = {RuntimeException.class}, //根据异常重试机制
             maxAttempts = 3,   //重试次数
-            backoff = @Backoff(delay = 5000,multiplier = 5)   // delay间隔，多少个执行者
+            backoff = @Backoff(delay = 5000, multiplier = 5)   // delay间隔，多少个执行者
     )
-    public String retry(){
+    public String retry() {
         System.out.println("retry 执行了 。。。。");
         throw new RuntimeException();
     }
+
+    public void recover(RuntimeException e) {
+        System.out.println("最终处理");
+    }
+
+
 }
